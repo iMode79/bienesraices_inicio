@@ -31,10 +31,12 @@
     text-align: center;
     margin-top: calc($separacion / 2);
     display: $display;
+    border: none;
 
 
 
     &:hover {
+        cursor: pointer;
         color: $blanco;
         background-color: darken($bgcolor, 5);
     }

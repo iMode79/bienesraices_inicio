@@ -1,0 +1,15 @@
+@include tablet {
+    .entrada-nosotros {
+        display: grid;
+        grid-template-columns: 2fr 2fr;
+        column-gap: 2rem;        
+    }
+
+    picture {
+        padding-top: 2rem;
+    }
+}
+
+p {
+    font-size: 1.8rem;
+}
