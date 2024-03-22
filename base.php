@@ -22,9 +22,7 @@
                 </nav>
                 
             </div><!--.barra-->
-
         </div>
-
     </header>
     
     <main class="contenedor">

@@ -1,38 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bienes Raices</title>
-    <link rel="stylesheet" href="build/css/app.css">
-</head>
-<body>
-    <header class="header">
-        <div class="contenedor contenido-header">
-            <div class="barra">
-                <a href="/">
-                    <img src="build/img/logo.svg" alt="logo de bienes raices">
-                </a>
+<?php 
 
-                <div class="mobile-menu">
-                    <img src="build/img/barras.svg" alt="Icono Menu responsive">
-                </div>
+require 'includesphp/funciones.php';
 
-                <div class="derecha">
-                    <img class="dark-mode-boton" src="build/img/dark-mode.svg" alt="Modo Oscuro">
-                    <nav class="navegacion">
-                        <a href="nosotros.html">Nosotros</a>
-                        <a href="anuncios.html">Anuncios</a>
-                        <a href="blog.html">Blog</a>
-                        <a href="contacto.html">Contactos</a>
-                    </nav>
-                </div>
-                
-            </div><!--.barra-->
 
-        </div>
+incluirTemplate('header');
 
-    </header>
+?> 
     
     <main class="contenedor contenido-centrado">
         <h1>Nuestro Blog</h1>
@@ -46,7 +19,7 @@
                 </picture>
             </div>
             <div class="texto-entrada">
-                <a href="entrada.html">
+                <a href="entrada.php">
                     <h4>Terraza en el techo de tu casa</h4>                   
                     <p>Consejos para construir una terrazada en el techode tu casa con los mejores materiales y ahorrando dinero</p>
                 </a>
@@ -61,7 +34,7 @@
                 </picture>
             </div>
             <div class="texto-entrada">
-                <a href="entrada.html">
+                <a href="entrada.php">
                     <h4>Construye una alberca en tu hogar</h4>                   
                     <p>Maximiza el espacio de tu hogar con esta guia, aprende a combinar muebles y colores para darle vida a tu espacio</p>
                 </a>
@@ -76,7 +49,7 @@
                 </picture>
             </div>
             <div class="texto-entrada">
-                <a href="entrada.html">
+                <a href="entrada.php">
                     <h4>Guia para decoración de tu hogar</h4>                   
                     <p>Maximiza el espacio de tu hogar con esta guia, aprende a combinar muebles y colores para darle vida a tu espacio</p>
                 </a>
@@ -91,7 +64,7 @@
                 </picture>
             </div>
             <div class="texto-entrada">
-                <a href="entrada.html">
+                <a href="entrada.php">
                     <h4>Guia para decoración de tu habitación</h4>                   
                     <p>Maximiza el espacio de tu hogar con esta guia, aprende a combinar muebles y colores para darle vida a tu espacio</p>
                 </a>
@@ -99,21 +72,4 @@
         </article>
     </main>
 
-
-
-    <footer class="footer seccion">
-        <div class="contenedor contenedor footer">
-            <nav class="navegacion">
-                <a href="nosotros.html">Nosotros</a>
-                <a href="anuncios.html">Anuncios</a>
-                <a href="blog.html">Blog</a>
-                <a href="contacto.html">Contactos</a>
-            </nav>
-        </div>
-        <p class="copyright">Todos los Derechos Reservados 2024 &copy;</p>
-    </footer>
-
-
-    <script src="build/js/bundle.min.js"></script>
-</body>
-</html>
+<?php incluirTemplate('footer'); ?> 
