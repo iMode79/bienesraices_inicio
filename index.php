@@ -140,9 +140,9 @@ incluirTemplate('header', $inicio = true);
             <article class="entrada-blog">
                 <div class="imagen">
                     <picture>
-                        <source srcset="build/img/blog1.webp" type="image/webp">
-                        <source srcset="build/img/blog1.jpg" type="image/jpg">
-                        <img src="build/img/blog1.jpg" alt="Texto Entrada Blog" loading="lazy">
+                        <source srcset="/build/img/blog1.webp" type="image/webp">
+                        <source srcset="/build/img/blog1.jpg" type="image/jpg">
+                        <img src="/build/img/blog1.jpg" alt="Texto Entrada Blog" loading="lazy">
                     </picture>
                 </div>
                 <div class="texto-entrada">
@@ -157,9 +157,9 @@ incluirTemplate('header', $inicio = true);
             <article class="entrada-blog">
                 <div class="imagen">
                     <picture>
-                        <source srcset="build/img/blog2.webp" type="image/webp">
-                        <source srcset="build/img/blog2.jpg" type="image/jpg">
-                        <img src="build/img/blog2.jpg" alt="Texto Entrada Blog" loading="lazy">
+                        <source srcset="/build/img/blog2.webp" type="image/webp">
+                        <source srcset="/build/img/blog2.jpg" type="image/jpg">
+                        <img src="/build/img/blog2.jpg" alt="Texto Entrada Blog" loading="lazy">
                     </picture>
                 </div>
                 <div class="texto-entrada">

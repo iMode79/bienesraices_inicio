@@ -13,6 +13,6 @@
     </footer>
 
 
-    <script src="/bienesraices_iniciobuild/js/bundle.min.js"></script>
+    <script src="/bienesraices_inicio/build/js/bundle.min.js"></script>
 </body>
 </html>

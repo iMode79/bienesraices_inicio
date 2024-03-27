@@ -37,7 +37,7 @@ incluirTemplate('header');
                 <legend>Información sobre la propiedad</legend>
 
                 <label for="opciones">Vende o Compra</label>
-                <select  id="opciones"> 
+                <select class="sel" id="opciones"> 
                     <option value="" disabled selected>-- Seleccione --</option>
                     <option value="compra">Compra</option>
                     <option value="vende">Vende</option>
