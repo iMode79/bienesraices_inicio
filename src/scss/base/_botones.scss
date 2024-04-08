@@ -9,3 +9,11 @@
 .boton-amarillo-inLine{
     @include boton ($amarillo, inline-block);
 }
+
+.boton-rojo-block {
+    @include boton ($rojo, block);
+}
+
+.boton-verde-block {
+    @include boton ($verde, block);
+}

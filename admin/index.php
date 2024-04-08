@@ -1,11 +1,20 @@
 <?php 
 ini_set('display_errors', 1);
-    /*echo"<pre>";
-    var_dump($_GET);
-    echo"</pre>";
-    exit;*/
+
+    //Importar la base de datos
+    require '../includesphp/config/database.php';
+    $db = conectarDB();
+
+    //Escribir el query
+    $query = "SELECT * FROM propiedades";
+
+    //Consultar la base de datos
+    $resultadoConsulta = mysqli_query($db, $query);
+
+    //Muestra mensaje Condicional
     $resultado = $_GET['resultado'] ?? null;//Solo agarramos del url el valor de resultado
 
+    //Incluye template
     require '../includesphp/funciones.php';
     incluirTemplate('header');
 ?> 
@@ -19,8 +28,38 @@ ini_set('display_errors', 1);
 
         <a href="/bienesraices_inicio/admin/propiedades/crear.php" class="boton boton-verde">Nueva Propiedad</a>
 
+        <table class="propiedades">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Titulo</th>
+                    <th>Imagen</th>
+                    <th>Precio</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody> <!-- Mostrar los Resultados -->
+            <?php while ($propiedad = mysqli_fetch_assoc($resultadoConsulta)): ?>
+                <tr>
+                    <td> <?php echo $propiedad ['id']; ?> </td>
+                    <td> <?php echo $propiedad ['titulo']; ?> </td>
+                    <td> <img src="../imagenes/<?php echo $propiedad ['imagen']; ?>" class="imagen-tabla"> </td>
+                    <td>$ <?php echo $propiedad ['precio']; ?> </td>
+                    <td>
+                        <a href="#" class="boton-rojo-block">eliminar</a>
+                        <a href="/bienesraices_inicio/admin/propiedades/actualizar.php? id=<?php echo $propiedad ['id']; ?>"   class="boton-amarillo-block">actualizar</a> 
+                    </td>
+                </tr>
+            <?php endwhile; ?>
+            </tbody>
+        </table>
+
     </main>
 
 <?php 
+
+    //Cerrar la conexión
+    mysqli_close($db);
+
     incluirTemplate('footer'); 
 ?> 
