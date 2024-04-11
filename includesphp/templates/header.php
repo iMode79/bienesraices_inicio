@@ -11,7 +11,7 @@
     <header class="header <?php echo $inicio ? 'inicio' : ''; ?>">
         <div class="contenedor contenido-header">
             <div class="barra">
-                <a href="bienesraices_inicio/index.php">
+                <a href="/bienesraices_inicio/index.php">
                     <img src="/bienesraices_inicio/build/img/logo.svg" alt="logo de bienes raices">
                 </a>
 
@@ -22,10 +22,10 @@
                 <div class="derecha">
                     <img class="dark-mode-boton" src="/bienesraices_inicio/build/img/dark-mode.svg" alt="Modo Oscuro">
                     <nav class="navegacion">
-                        <a href="nosotros.php">Nosotros</a>
-                        <a href="anuncios.php">Anuncios</a>
-                        <a href="blog.php">Blog</a>
-                        <a href="contacto.php">Contactos</a>
+                        <a href="/bienesraices_inicio/nosotros.php">Nosotros</a>
+                        <a href="/bienesraices_inicio/anuncios.php">Anuncios</a>
+                        <a href="/bienesraices_inicio/blog.php">Blog</a>
+                        <a href="/bienesraices_inicio/contacto.php">Contactos</a>
                     </nav>
                 </div>
             </div><!--.barra-->

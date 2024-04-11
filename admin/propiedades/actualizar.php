@@ -1,4 +1,5 @@
 <?php
+ini_set('display_errors', 1);
 
     $id = $_GET['id']; 
     $id = filter_var($id, FILTER_VALIDATE_INT);
@@ -14,10 +15,9 @@
     $consulta = "SELECT * FROM propiedades WHERE id = $id";
     $resultado = mysqli_query($db, $consulta);
     $propiedad = mysqli_fetch_assoc($resultado);
-    echo"<pre>";
+    /*echo"<pre>";
     var_dump($propiedad);
-    echo"</pre>";
-
+    echo"</pre>";*/
 
     //Consulta para obtener vendedores
     $consulta = "SELECT * FROM vendedores";
@@ -42,9 +42,9 @@
 
         /*echo"<pre>";
         var_dump($_POST);
-        echo"</pre>";
+        echo"</pre>"; */     
 
-        echo"<pre>";
+        /*echo"<pre>";
         var_dump($_FILES);
         echo"</pre>";
         exit;*/
@@ -84,9 +84,6 @@
             $errores [] = "Debes añadir un vendedor";
         }
 
-        if (!$imagen['name'] || $imagen['error']) {
-            $errores [] = "La imagen es obligatoria";
-        }
         //Validacion de carga de imagenes por tamaño (max 1mb)
         $medida = 1000 * 1000;
         if ($imagen['size'] > $medida) {
@@ -94,32 +91,44 @@
         }
         /*echo"<pre>";
         var_dump($errores);
-        echo"</pre>";*/
+        echo"</pre>";*/ 
         //exit;
         //Revisar que el arreglo este vacio
         if (empty($errores)) {
-
-            //Subida de archivos Si $errores esta vacio entonces sube archivo
+                    
             //Creación de carpetas con ruta relativa
             $carpetaImagenes = '../../imagenes/';
+
             if (!is_dir($carpetaImagenes)) {
                 mkdir($carpetaImagenes);
             }
+        
+            $nombreImagen = '';//Seteo de la variable $nombreImagen a cadena vacia
 
-            //Generar nombre único
-            $nombreImagen = md5(uniqid(rand(),true)) . ".jpg";
+            if ($imagen['name']) {
+                //Si hay una imagen nueva, se eliminara la anterior
+                unlink($carpetaImagenes . $propiedad['imagen']);            
 
-            //Subir imagen
-            move_uploaded_file($imagen['tmp_name'], $carpetaImagenes . $nombreImagen);            
+                //Generar nombre único de la carga nueva
+                $nombreImagen = md5(uniqid(rand(),true)) . ".jpg";
 
-            //query de insercion de datos del formulario a la base de datos 
-            $query = "INSERT INTO propiedades (titulo, precio, imagen, descripcion, habitaciones, wc, estacionamiento, creado, vendedorId) VALUES ('$titulo', '$precio', '$nombreImagen', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$creado', '$vendedorId')";
+                //Subir la carga nueva
+                move_uploaded_file($imagen['tmp_name'], $carpetaImagenes . $nombreImagen);     
+                } else {
+                    $nombreImagen = $propiedad['imagen'];//Se renombra nuevamente a lo que se tiene en la base de datos
+                }
+
+            //query de actualización de datos del formulario a la base de datos 
+            $query = "UPDATE propiedades SET titulo = '{$titulo}', precio = '{$precio}', imagen = '{$nombreImagen}', descripcion = '{$descripcion}', habitaciones = {$habitaciones}, wc = {$wc}, estacionamiento = {$estacionamiento}, vendedorId = {$vendedorId} WHERE id = {$id}";
+
             //echo $query;
+            //exit;
+
             //echo $creado;
             $resultado = mysqli_query($db, $query);
             if($resultado) {
                 //echo "Insertardo Correctamente";
-                header('Location: /bienesraices_inicio/admin?resultado=1');
+                header('Location: /bienesraices_inicio/admin?resultado=2');
             } 
         }
     }    
@@ -137,7 +146,7 @@
             </div>
         <?php endforeach; ?>
 
-        <form class="formulario" method="POST" action="/bienesraices_inicio/admin/propiedades/crear.php" enctype="multipart/form-data">
+        <form class="formulario" method="POST" enctype="multipart/form-data">
             <fieldset>
                 <legend>Información General de Nuestras Propiedades</legend>
 
