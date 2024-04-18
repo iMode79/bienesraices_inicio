@@ -2,6 +2,13 @@
 
 ini_set('display_errors', 1);
 
+require '../includesphp/funciones.php';
+$auth = estaAutenticado();
+
+if(!$auth) {
+    header('Location: /bienesraices_inicio/admin');
+}
+
     //Importar la base de datos
     require '../includesphp/config/database.php';
     $db = conectarDB();
@@ -15,7 +22,7 @@ ini_set('display_errors', 1);
     //Muestra mensaje Condicional
     $resultado = $_GET['resultado'] ?? null;//Solo agarramos del url el valor de resultado
 
-    //
+    //Validación para eliminar imagen
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id = $_POST['id'];
         
@@ -39,7 +46,7 @@ ini_set('display_errors', 1);
         }
 
     //Incluye template
-    require '../includesphp/funciones.php';
+    
     incluirTemplate('header');
 ?> 
     
@@ -81,11 +88,9 @@ ini_set('display_errors', 1);
                 
                         <form method="POST" class="w-100">
                             <input type="hidden" name="id" value="<?php echo $propiedad ['id']; ?>">
-                            <input type="submit" class="boton-rojo-block" value="eliminar">
-                        </form>
-                        
-                        <!-- <a href="/bienesraices_inicio/admin/propiedades/borrar.php? id=<?php echo $propiedad ['id']; ?>" class="boton-rojo-block">eliminar</a> -->
-                        
+                            <input type="submit" class="boton-rojo-block bt" value="eliminar">
+                        </form>                        
+                        <!-- <a href="/bienesraices_inicio/admin/propiedades/borrar.php? id=<?php echo $propiedad ['id']; ?>" class="boton-rojo-block">eliminar</a> -->                        
                         <a href="/bienesraices_inicio/admin/propiedades/actualizar.php? id=<?php echo $propiedad ['id']; ?>"   class="boton-amarillo-block">actualizar</a> 
                     </td>
                 </tr>

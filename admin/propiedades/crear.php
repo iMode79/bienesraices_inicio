@@ -2,6 +2,13 @@
     require '../../includesphp/config/database.php';
     $db = conectarDB();
 
+    require '../../includesphp/funciones.php';
+    $auth = estaAutenticado();
+
+    if(!$auth) {
+        header('Location: /bienesraices_inicio/admin');
+    }
+
     //Consulta para obtener vendedores
     $consulta = "SELECT * FROM vendedores";
     $resultados = mysqli_query($db, $consulta); //Guardamos en la variable $resultado con la funcion mysqli la variable $db que es la conexion a la BD's y la $consulta
@@ -105,7 +112,7 @@
             } 
         }
     }    
-    require '../../includesphp/funciones.php';
+    
     incluirTemplate('header');
 ?> 
     

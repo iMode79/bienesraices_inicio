@@ -26,7 +26,6 @@ incluirTemplate('header');
 
 ?> 
 
-
 <main class="contenedor seccion contenido-centrado">
     <!-- Itinerar posiciones de la consulta -->
     <?php while($propiedad = mysqli_fetch_assoc($resultado)): ?>

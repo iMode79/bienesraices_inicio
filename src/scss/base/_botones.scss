@@ -1,5 +1,6 @@
 .boton-amarillo-block{
     @include boton ($amarillo, block);
+    
 }
 
 .boton-verde{
@@ -16,10 +17,11 @@
 
 .boton-rojo-block {
     @include boton ($rojo, block);
-    width: 100%;//forza que el boton rojo de eliminar registro se amplié
-
+    width: 100%;//forza que el boton rojo alcance el ancho necesario
+    padding: 1.5rem 3rem;//forza que el boton rojo alcance el alto necesario
 }
 
 .boton-verde-block {
     @include boton ($verde, block);
 }
+

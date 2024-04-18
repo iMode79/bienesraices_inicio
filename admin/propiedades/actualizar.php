@@ -1,6 +1,15 @@
 <?php
 ini_set('display_errors', 1);
 
+require '../../includesphp/funciones.php';
+$auth = estaAutenticado();
+
+
+if(!$auth) {
+    header('Location: /bienesraices_inicio/admin');
+}
+
+
     $id = $_GET['id']; 
     $id = filter_var($id, FILTER_VALIDATE_INT);
 
@@ -119,7 +128,7 @@ ini_set('display_errors', 1);
                 }
 
             //query de actualización de datos del formulario a la base de datos 
-            $query = "UPDATE propiedades SET titulo = '{$titulo}', precio = '{$precio}', imagen = '{$nombreImagen}', descripcion = '{$descripcion}', habitaciones = {$habitaciones}, wc = {$wc}, estacionamiento = {$estacionamiento}, vendedorId = {$vendedorId} WHERE id = {$id}";
+            $query = "UPDATE propiedades SET titulo = '{$titulo}', precio = $precio, imagen = '{$nombreImagen}', descripcion = '{$descripcion}', habitaciones = {$habitaciones}, wc = {$wc}, estacionamiento = {$estacionamiento}, vendedorId = {$vendedorId} WHERE id = {$id}";
 
             //echo $query;
             //exit;
@@ -132,7 +141,7 @@ ini_set('display_errors', 1);
             } 
         }
     }    
-    require '../../includesphp/funciones.php';
+
     incluirTemplate('header');
 ?> 
     
@@ -153,10 +162,10 @@ ini_set('display_errors', 1);
                 <label for="titulo">Titulo</label>
                 <input type="text" id="titulo" name="titulo" placeholder="Titulo Propiedad" value="<?php echo $titulo ?>">
 
-                <label for="precio">Precio</label>
-                <input type="number" id="precio" name="precio" placeholder="Precio Propiedad"  value="<?php echo $precio ?>">
+                <label for="precio">Precio <span> Ingrese nuevo Precio</span></label>                
+                <input type="number" id="precio" name="precio" placeholder="El precio registrado es: <?php echo $propiedad ['precio']; ?>" > <!-- Se elimino el value = "El precio registrado es: <?php //echo $propiedad ['precio']; ?>" POR UN ERROR AL CARGAR EL UPDATE -->
 
-                <label for="imagen">Imagen</label>
+                <label for="imagen">Imagen</label>                
                 <input type="file" id="imagen" name="imagen" accept="image/jpeg, image/png">
                 
                 <img src="../../imagenes/<?php echo $propiedad ['imagen']; ?>" class="imagen-small">
