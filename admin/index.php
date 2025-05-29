@@ -1,13 +1,11 @@
 <?php 
-
 ini_set('display_errors', 1);
 
 require '../includesphp/funciones.php';
+
+//Inicio de Sesion
 $auth = estaAutenticado();
 
-if(!$auth) {
-    header('Location: /bienesraices_inicio/admin');
-}
 
     //Importar la base de datos
     require '../includesphp/config/database.php';

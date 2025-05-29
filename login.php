@@ -1,7 +1,8 @@
 <?php 
-
-require 'includesphp/config/database.php';
-$db = conectarDB();
+    
+//Inluye el header
+require 'includesphp/app.php';
+    $db = conectarDB();
 
     //Autenticar el usuario
     $errores = [];
@@ -17,6 +18,7 @@ $db = conectarDB();
         if (!$password) {
             $errores [] = "El Password es obligatorio";
         }
+
         if (empty($errores)) {
             //revisar si el usuario existe
             $query = "SELECT * FROM usuarios WHERE email = '{$email}'";
@@ -33,12 +35,13 @@ $db = conectarDB();
                 if($auth) {
                     //usuario autenticado
                     session_start();
+                    
                     //Llenar el arreglo sesión
                     $_SESSION['usuario'] = $usuario ['email'];
                     $_SESSION['login'] = true;
 
                     //redireccionar
-                    header('Location: /bienesraices_inicio/admin');
+                    header('Location: /bienesraices_inicio/admin/');
 
                 } else {
                     $errores [] = "El password es incorrecto";
@@ -48,12 +51,9 @@ $db = conectarDB();
                 $errores [] = "El Usuario No exixte";
             }
         }
-       
     }
-
-
     //Inluye el header
-    require 'includesphp/funciones.php';
+    //require 'includesphp/funciones.php';
     incluirTemplate('header');
 ?> 
     
@@ -73,10 +73,10 @@ $db = conectarDB();
                 <legend>Email y Password</legend>
 
                 <label for="email">E-Mail</label>
-                <input type="email" name="email" placeholder="Tu E-Mail" id="email" >
+                <input type="email" name="email" placeholder="Tu E-Mail" id="email">
 
                 <label for="password">Password</label>
-                <input type="password" name="password" placeholder="Tu Password" id="telefono" >
+                <input type="password" name="password" placeholder="Tu Password" id="telefono">
 
             </fieldset>
 

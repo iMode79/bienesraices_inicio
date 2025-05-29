@@ -1,20 +1,23 @@
 <?php
-    require '../../includesphp/config/database.php';
+ini_set('display_errors', 1);
+    
+
+    require '../../includesphp/app.php';
+
+    use App\Propiedad;
+    
+    //Inicio de Sesion
+    estaAutenticado();
+
     $db = conectarDB();
-
-    require '../../includesphp/funciones.php';
-    $auth = estaAutenticado();
-
-    if(!$auth) {
-        header('Location: /bienesraices_inicio/admin');
-    }
 
     //Consulta para obtener vendedores
     $consulta = "SELECT * FROM vendedores";
     $resultados = mysqli_query($db, $consulta); //Guardamos en la variable $resultado con la funcion mysqli la variable $db que es la conexion a la BD's y la $consulta
 
     //arreglo con mensajes de errores
-    $errores = [];
+    $errores = Propiedad::getErrores();
+    //debuguear($errores);
 
     $titulo = '';
     $precio = '';
@@ -29,64 +32,33 @@
     //Ejecuta código después de que el usuario envia el formulario
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-        /*echo"<pre>";
-        var_dump($_POST);
-        echo"</pre>";
+        $propiedad = new Propiedad($_POST);
 
-        echo"<pre>";
-        var_dump($_FILES);
-        echo"</pre>";
-        exit;*/
+        $errores = $propiedad->validar();
 
-        $titulo = mysqli_real_escape_string($db, filter_var($_POST['titulo'],FILTER_SANITIZE_STRING));
-        $precio = mysqli_real_escape_string($db,  filter_var($_POST['precio'],FILTER_SANITIZE_NUMBER_FLOAT));  //$_POST['precio']);
-        $descripcion = mysqli_real_escape_string($db, filter_var($_POST['descripcion'],FILTER_SANITIZE_STRING));  //$_POST['descripcion']);
-        $habitaciones = mysqli_real_escape_string($db, filter_var($_POST['habitaciones'],FILTER_SANITIZE_NUMBER_FLOAT));  //$_POST['habitaciones']);
-        $wc = mysqli_real_escape_string($db, filter_var($_POST['wc'],FILTER_SANITIZE_NUMBER_FLOAT));  //$_POST['wc']);
-        $estacionamiento = mysqli_real_escape_string($db, filter_var($_POST['estacionamiento'],FILTER_SANITIZE_NUMBER_FLOAT));  //$_POST['estacionamiento']);
-        $vendedorId = mysqli_real_escape_string($db, filter_var($_POST['vendedor'],FILTER_SANITIZE_NUMBER_FLOAT));  //$_POST['vendedor']);  
-        $creado = date('Y/m/d');
-
-        //Validar carga de imagenes
-        $imagen = $_FILES['imagen'];
-        
-        //Validación de errores
-        if (!$titulo) {
-            $errores [] = "Debes añadir un titulo";
-        }
-        if (!$precio) {
-            $errores [] = "Debes añadir un precio";
-        }
-        if (strlen($descripcion)<50) {
-            $errores [] = "Debes añadir un descripcion de al menos 50 caracteres";
-        }
-        if (!$habitaciones) {
-            $errores [] = "Debes añadir un habitaciones";
-        }
-        if (!$wc) {
-            $errores [] = "Debes añadir un wc";
-        }
-        if (!$estacionamiento) {
-            $errores [] = "Debes añadir un estacionamiento";
-        }
-        if (!$vendedorId) {
-            $errores [] = "Debes añadir un vendedor";
-        }
-
-        if (!$imagen['name'] || $imagen['error']) {
-            $errores [] = "La imagen es obligatoria";
-        }
-        //Validacion de carga de imagenes por tamaño (max 1mb)
-        $medida = 1000 * 1000;
-        if ($imagen['size'] > $medida) {
-            $errores [] = "La imagen es muy pesada";
-        }
-        /*echo"<pre>";
-        var_dump($errores);
-        echo"</pre>";*/
-        //exit;
         //Revisar que el arreglo este vacio
         if (empty($errores)) {
+
+            $propiedad->guardar();
+
+            //debuguear($propiedad);
+    
+            //Se elimina código sanitizante, ya que se esta sanitizando en Propiedades.php dentro de la clase guardar 
+            /*$titulo = mysqli_real_escape_string($db, filter_var($_POST['titulo'],FILTER_SANITIZE_STRING));
+            $precio = mysqli_real_escape_string($db,  filter_var($_POST['precio'],FILTER_SANITIZE_NUMBER_FLOAT));  //$_POST['precio']);
+            $descripcion = mysqli_real_escape_string($db, filter_var($_POST['descripcion'],FILTER_SANITIZE_STRING));  //$_POST['descripcion']);
+            $habitaciones = mysqli_real_escape_string($db, filter_var($_POST['habitaciones'],FILTER_SANITIZE_NUMBER_FLOAT));  //$_POST['habitaciones']);
+            $wc = mysqli_real_escape_string($db, filter_var($_POST['wc'],FILTER_SANITIZE_NUMBER_FLOAT));  //$_POST['wc']);
+            $estacionamiento = mysqli_real_escape_string($db, filter_var($_POST['estacionamiento'],FILTER_SANITIZE_NUMBER_FLOAT));  //$_POST['estacionamiento']);
+            $vendedorId = mysqli_real_escape_string($db, filter_var($_POST['vendedor'],FILTER_SANITIZE_NUMBER_FLOAT));  //$_POST['vendedor']);  
+            $creado = date('Y/m/d');*/
+    
+            /*echo"<pre>";
+            var_dump($errores);
+            echo"</pre>";*/
+            //exit;
+            //Validar carga de imagenes
+            $imagen = $_FILES['imagen'];
 
             //Subida de archivos Si $errores esta vacio entonces sube archivo
             //Creación de carpetas con ruta relativa
@@ -101,8 +73,7 @@
             //Subir imagen
             move_uploaded_file($imagen['tmp_name'], $carpetaImagenes . $nombreImagen);            
 
-            //query de insercion de datos del formulario a la base de datos 
-            $query = "INSERT INTO propiedades (titulo, precio, imagen, descripcion, habitaciones, wc, estacionamiento, creado, vendedorId) VALUES ('$titulo', '$precio', '$nombreImagen', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$creado', '$vendedorId')";
+           //Aquí estaba el INSERT
             //echo $query;
             //echo $creado;
             $resultado = mysqli_query($db, $query);
@@ -159,7 +130,7 @@
             <fieldset>
                 <legend>Vendedor</legend>
 
-                <select name="vendedor">
+                <select name="vendedorId">
                     <option value=""> >---Seleccione Vendedor---< </option>
                     <?php while($vendedor = mysqli_fetch_assoc($resultados)): ?>
                         <option <?php echo $vendedorId === $vendedor['idvendedores'] ? 'selected' : ''; ?> value="<?php echo $vendedor ['idvendedores'] ?>"> <?php echo $vendedor ['nombre'] . " " . $vendedor['apellidol']; ?> </option>

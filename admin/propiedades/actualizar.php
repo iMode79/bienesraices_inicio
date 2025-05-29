@@ -2,19 +2,15 @@
 ini_set('display_errors', 1);
 
 require '../../includesphp/funciones.php';
+
+//Inicio de sesion
 $auth = estaAutenticado();
-
-
-if(!$auth) {
-    header('Location: /bienesraices_inicio/admin');
-}
-
 
     $id = $_GET['id']; 
     $id = filter_var($id, FILTER_VALIDATE_INT);
 
     if (!$id) {
-        header ('location: /bienesraices_inicio/admin');
+        header ('location: /bienesraices_inicio/admin/');
     }
 
     require '../../includesphp/config/database.php';

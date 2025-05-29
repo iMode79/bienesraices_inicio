@@ -8,8 +8,11 @@ $id = filter_var($id, FILTER_VALIDATE_INT);
         header('Location: /bienesraices_inicio/index.php');
     }
 
+    //Llamado al archivo funciones para direciones de librerias --opcional--
+require 'includesphp/app.php';
+
 //Conexion a la base de datos
-require 'includesphp/config/database.php';
+//require 'includesphp/config/database.php';
 $db = conectarDB();
 
 //query a la base de datos
@@ -18,8 +21,7 @@ $query = "SELECT * FROM propiedades WHERE id = $id";
 //leer los resultados 
 $resultado = mysqli_query($db, $query);
 
-//Llamado al archivo funciones para direciones de librerias --opcional--
-require 'includesphp/funciones.php';
+
 
 //Llamado a la cabecera del proyecto general
 incluirTemplate('header');
