@@ -51,24 +51,12 @@ ini_set('display_errors', 1);
 
             //Subida de archivos Si $errores esta vacio entonces sube archivo
             //Creación de carpetas con ruta relativa
-            
-
             if (!is_dir(CARPETA_IMAGENES)) {
                 // 0755 es un permiso común que da lectura/escritura/ejecución al propietario
                 // y solo lectura/ejecución a grupo y otros.
                 // El 'true' es para crear directorios recursivamente si la ruta no existe.
                 mkdir(CARPETA_IMAGENES, 0755, true); 
             }
-
-            /*/ --- INTENTA ESTO PARA DIAGNOSTICO ---
-            $testFilePath = $carpetaImagenes . '/test_write.txt';
-            if (file_put_contents($testFilePath, 'Prueba de escritura')) {
-                echo "¡Éxito! Se pudo escribir en la carpeta de imágenes.<br>";
-            } else {
-                echo "¡Error! No se pudo escribir en la carpeta de imágenes. Revisa permisos.<br>";
-                // También puedes intentar obtener el último error de PHP para más detalles
-                error_log("Error al escribir archivo de prueba: " . error_get_last()['message']);
-            }*/
 
             //Guarda la imagen en el servidor
             $imagen->save(CARPETA_IMAGENES . $nombreImagen);

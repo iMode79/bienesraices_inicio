@@ -48,7 +48,7 @@ class Propiedad {
 
         //$string = join(', ', array_keys($atributos)); //Tomara dos parametros, el 1° la coma que separa los campos en el INSERT, el 2° la función array_keys
 
-     //query de insercion de datos del formulario a la base de datos 
+        //query de insercion de datos del formulario a la base de datos 
         $query = "INSERT INTO propiedades (";
         $query .= join(', ', array_keys($atributos));
         $query .= " ) VALUES (' "; 
@@ -57,7 +57,7 @@ class Propiedad {
 
         //debuguear($query);
         $resultado = self::$db->query($query);
-        debuguear($resultado);
+        return $resultado;
     }
 
     //Identifica y une los atributos de la BD's
@@ -120,5 +120,4 @@ class Propiedad {
             $this->imagen = $imagen;
         }
     }
-
 }
