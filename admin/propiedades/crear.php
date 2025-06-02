@@ -51,12 +51,13 @@ ini_set('display_errors', 1);
 
             //Subida de archivos Si $errores esta vacio entonces sube archivo
             //Creación de carpetas con ruta relativa
-            $carpetaImagenes = '../../imagenes/';
-            if (!is_dir($carpetaImagenes)) {
+            
+
+            if (!is_dir(CARPETA_IMAGENES)) {
                 // 0755 es un permiso común que da lectura/escritura/ejecución al propietario
                 // y solo lectura/ejecución a grupo y otros.
                 // El 'true' es para crear directorios recursivamente si la ruta no existe.
-                mkdir($carpetaImagenes, 0755, true); 
+                mkdir(CARPETA_IMAGENES, 0755, true); 
             }
 
             /*/ --- INTENTA ESTO PARA DIAGNOSTICO ---
@@ -70,7 +71,7 @@ ini_set('display_errors', 1);
             }*/
 
             //Guarda la imagen en el servidor
-            $imagen->save($carpetaImagenes . $nombreImagen);
+            $imagen->save(CARPETA_IMAGENES . $nombreImagen);
 
             $resultado = $propiedad->guardar();
             if($resultado) {
