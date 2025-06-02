@@ -1,0 +1,19 @@
+{
+    "name": "ricardo/bienesraices_inicio",
+    "description": "Creando el proyecto con POO",
+    "type": "project",
+    "authors": [
+        {
+            "name": "iMode79",
+            "email": "ricardo.labrada@me.com"
+        }
+    ],
+    "require": {
+        "intervention/image": "^3.11"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\" : "clases/"
+        }
+    }
+}
